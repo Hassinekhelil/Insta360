@@ -35,7 +35,7 @@ public class AppController extends Application {
 
     public void printKeyHash() {
         try {
-            PackageInfo info = getPackageManager().getPackageInfo("com.esprit.findme", PackageManager.GET_SIGNATURES);
+            PackageInfo info = getPackageManager().getPackageInfo("com.esprit.insta360", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());

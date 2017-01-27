@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/card_margin"
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
@@ -25,16 +24,17 @@
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="6dp"
                 android:scaleType="centerCrop" />
             <TextView
                 android:id="@+id/writer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/tvUserImage"
                 android:paddingBottom="5dp"
-                android:paddingLeft="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_marginRight="52dp"
                 android:textColor="#000000"
                 android:textSize="15dp" />
             <ImageView
@@ -43,7 +43,6 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="6dp"
                 android:scaleType="centerCrop" />
     </RelativeLayout>
     </android.support.v7.widget.CardView>

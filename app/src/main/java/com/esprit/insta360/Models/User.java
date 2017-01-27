@@ -19,18 +19,20 @@ public class User {
     private String photo;
     private String position;
     private Date updated_at;
+    private String biographie;
 
     public User()
     {
 
     }
 
-    public User(String name, String email, String login, String password, String photo) {
+    public User(String name, String email, String login, String password, String photo, String biographie) {
         this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
         this.photo = photo;
+        this.biographie=biographie;
     }
 
     public User(JSONObject j) {
@@ -38,8 +40,17 @@ public class User {
         this.name = j.optString("name");
         this.email=j.optString("email");
         this.login = j.optString("login");
+        this.biographie=j.optString("biographie");
 
 
+    }
+
+    public String getBiographie() {
+        return biographie;
+    }
+
+    public void setBiographie(String biographie) {
+        this.biographie = biographie;
     }
 
     public Date getUpdated_at() {
