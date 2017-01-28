@@ -86,7 +86,8 @@ public class NotificationsFragment extends Fragment{
                                     JSONObject j = array.getJSONObject(i);
                                     Notification notification = new Notification(j);
                                     notificationList.add(notification);
-                                    Toast.makeText(getActivity(), "id="+notificationList.get(0).getSender(), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getActivity(), "id="+notificationList.get(0).getSender()
+                                           // +"post="+notificationList.get(0).getLink(), Toast.LENGTH_SHORT).show();
                                 }
                                 adapter.notifyDataSetChanged();
 

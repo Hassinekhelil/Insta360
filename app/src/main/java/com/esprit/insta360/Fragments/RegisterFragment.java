@@ -30,7 +30,7 @@ import com.esprit.insta360.Utils.SessionManager;
 import java.util.Random;
 
 /**
- * Created by TIBH on 14/11/2016.
+ * Created by TIBH on 14/h11/2016.
  */
 
 public class RegisterFragment extends Fragment {

@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Created by TIBH on 14/11/2016.
+ * Created by TIBH on 14/h11/2016.
  */
 
 public class UserDao {
@@ -327,7 +327,7 @@ public class UserDao {
 
 
     public void getUserById(final int id , final List<User> users, final List<Post> postList){
-        Volley.newRequestQueue(activity).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_USER_BY_ID + "?id=" +6,
+        Volley.newRequestQueue(activity).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_USER_BY_ID + "?id=" +id,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

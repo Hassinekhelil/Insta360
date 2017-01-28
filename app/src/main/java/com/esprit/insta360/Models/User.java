@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by TIBH on 14/11/2016.
+ * Created by TIBH on 14/h11/2016.
  */
 
 public class User {
@@ -20,19 +20,26 @@ public class User {
     private String position;
     private Date updated_at;
     private String biographie;
+    private int followers;
+    private int followings;
+    private int posts;
 
     public User()
     {
 
     }
 
-    public User(String name, String email, String login, String password, String photo, String biographie) {
+    public User(String name, String email, String login, String password, String photo,
+                String biographie,int followers,int followings,int posts) {
         this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
         this.photo = photo;
         this.biographie=biographie;
+        this.followers=followers;
+        this.followings=followings;
+        this.posts=posts;
     }
 
     public User(JSONObject j) {
@@ -41,8 +48,34 @@ public class User {
         this.email=j.optString("email");
         this.login = j.optString("login");
         this.biographie=j.optString("biographie");
+        this.photo=j.optString("photo");
+        this.followers=j.optInt("followers");
+        this.followings=j.optInt("followings");
+        this.posts=j.optInt("posts");
+    }
 
+    public int getFollowers() {
+        return followers;
+    }
 
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public int getFollowings() {
+        return followings;
+    }
+
+    public void setFollowings(int followings) {
+        this.followings = followings;
+    }
+
+    public int getPosts() {
+        return posts;
+    }
+
+    public void setPosts(int posts) {
+        this.posts = posts;
     }
 
     public String getBiographie() {
