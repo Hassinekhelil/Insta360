@@ -41,8 +41,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.PostActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

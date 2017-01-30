@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,11 +22,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.esprit.insta360.Adapters.PicturesAdapter;
+import com.esprit.insta360.DAO.InvitationDao;
 import com.esprit.insta360.DAO.UserDao;
 import com.esprit.insta360.Models.Post;
 import com.esprit.insta360.Models.User;
 import com.esprit.insta360.R;
 import com.esprit.insta360.Utils.AppConfig;
+import com.esprit.insta360.Utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -50,6 +53,8 @@ public class ProfileActivity extends AppCompatActivity {
     private UserDao userDao;
     private PicturesAdapter picturesAdapter;
     private RecyclerView mRecyclerView;
+    private InvitationDao invitationDao;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
+        sessionManager= new SessionManager(getApplicationContext());
         back = (Button) findViewById(R.id.returnBtn);
         title =(TextView) findViewById(R.id.secondTitre);
         profilePicture = (ImageView) findViewById(R.id.ivUserProfilePhoto);
@@ -69,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         followings=(TextView) findViewById(R.id.nbFollowings);
         mRecyclerView=(RecyclerView)findViewById(R.id.rvUserProfile);
         userDao=new UserDao();
+        invitationDao=new InvitationDao(this);
         postList=new ArrayList<>();
         userList=new ArrayList<>();
         picturesAdapter=new PicturesAdapter(getApplicationContext(),postList);
@@ -77,7 +84,28 @@ public class ProfileActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(picturesAdapter);
         bundle=getIntent().getExtras();
         idUser=bundle.getInt("id");
-        //getUser();
+        //test
+        sessionManager.setUserId(7);
+
+        follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userList.get(0).getFriendship()){
+                    invitationDao.deleteFriendRequest(sessionManager.getUserId(),idUser);
+                    follow.setText("follow");
+                    follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+                    follow.setBackgroundResource(R.drawable.btn_follow);
+                    setParams();
+                }
+                else{
+                    invitationDao.sendFriendRequest(sessionManager.getUserId(),idUser);
+                    follow.setText("following");
+                    follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
+                    follow.setBackgroundResource(R.drawable.btn_follow_pressed);
+                    setParams();
+                }
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -85,12 +113,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        follow.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-
-                //incompleted
-            }
-        });
     }
 
     @Override
@@ -100,6 +122,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void setParams(){
+
         if (userList.size()>0){
             title.setText(userList.get(0).getName());
             name.setText(userList.get(0).getName());
@@ -109,13 +132,25 @@ public class ProfileActivity extends AppCompatActivity {
             followings.setText(String.valueOf(userList.get(0).getFollowings()));
             posts.setText(String.valueOf(userList.get(0).getPosts()));
             Picasso.with(getApplicationContext()).load(userList.get(0).getPhoto()).into(profilePicture);
+            if (userList.get(0).getFriendship()){
+                follow.setText("following");
+                follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
+                follow.setBackgroundResource(R.drawable.btn_follow_pressed);
+            }
+            else{
+                follow.setText("follow");
+                follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+                follow.setBackgroundResource(R.drawable.btn_follow);
+
+            }
         }
     }
 
     public void getUser(){
         postList.clear();
         userList.clear();
-        Volley.newRequestQueue(this).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_USER_BY_ID + "?id=" +idUser,
+        Volley.newRequestQueue(this).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_USER_BY_ID
+                + "?id=" +6+"&me="+7,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

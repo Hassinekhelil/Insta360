@@ -95,8 +95,8 @@ android:orientation="vertical">
                                 android:layout_height="24dp"
                                 android:layout_marginRight="24dp"
                                 android:layout_marginTop="8dp"
-                                android:background="@drawable/btn_following"
-                                android:text="following"
+                                android:background="@drawable/btn_follow"
+                                android:text="follow"
                                 android:textColor="#ffffff"
                                 android:textSize="12sp" />
 

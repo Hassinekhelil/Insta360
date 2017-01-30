@@ -16,7 +16,6 @@ public class Notification {
     private int link;
     private String name;
     private String type;
-    private int post;
     private String profile;
     private String url;
     private Date created_at;
@@ -26,13 +25,12 @@ public class Notification {
     }
 
 
-    public Notification(int id ,int sender, int link, String name ,  String type, int post,String profile,String url,Date created_at){
+    public Notification(int id ,int sender, int link, String name ,  String type,String profile,String url,Date created_at){
         this.id=id;
         this.sender=sender;
         this.link=link;
         this.name=name;
         this.type=type;
-        this.post=post;
         this.profile=profile;
         this.url=url;
         this.created_at=created_at;
@@ -92,14 +90,6 @@ public class Notification {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public int getPost() {
-        return post;
-    }
-
-    public void setPost(int post) {
-        this.post = post;
     }
 
     public String getProfile() {

@@ -17,14 +17,22 @@ public class Post {
     private String url;
     private int likes;
     private int owner;
+    private String name;
+    private String photo;
+    private String location;
+    private Boolean liked;
 
-    public Post(int id, Date date, String description, String url, int likes, int owner) {
+    public Post(int id, Date date, String description, String url, int likes, int owner,String name,String photo,String location,Boolean liked) {
         this.id = id;
         this.date = date;
         this.description = description;
         this.url = url;
         this.likes = likes;
         this.owner = owner;
+        this.name=name;
+        this.photo=photo;
+        this.location=location;
+        this.liked=liked;
     }
 
     public Post(JSONObject j) {
@@ -33,6 +41,10 @@ public class Post {
         this.likes=j.optInt("like");
         this.description=j.optString("description");
         this.url=j.optString("url");
+        this.name=j.optString("name");
+        this.photo=j.optString("photo");
+        this.location=j.optString("location");
+        this.liked=j.optBoolean("liked");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             this.date= sdf.parse(j.optString("date"));
@@ -47,6 +59,38 @@ public class Post {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Boolean getLiked() {
+        return liked;
+    }
+
+    public void setLiked(Boolean liked) {
+        this.liked = liked;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public Date getDate() {

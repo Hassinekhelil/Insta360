@@ -23,23 +23,27 @@ public class User {
     private int followers;
     private int followings;
     private int posts;
+    private Boolean friendship;
 
     public User()
     {
 
     }
 
-    public User(String name, String email, String login, String password, String photo,
-                String biographie,int followers,int followings,int posts) {
+    public User(int id, String name, String email, String login, String password, String photo, String position, Date updated_at, String biographie, int followers, int followings, int posts, Boolean friendship) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
         this.photo = photo;
-        this.biographie=biographie;
-        this.followers=followers;
-        this.followings=followings;
-        this.posts=posts;
+        this.position = position;
+        this.updated_at = updated_at;
+        this.biographie = biographie;
+        this.followers = followers;
+        this.followings = followings;
+        this.posts = posts;
+        this.friendship = friendship;
     }
 
     public User(JSONObject j) {
@@ -52,6 +56,15 @@ public class User {
         this.followers=j.optInt("followers");
         this.followings=j.optInt("followings");
         this.posts=j.optInt("posts");
+        this.friendship=j.optBoolean("friendship");
+    }
+
+    public Boolean getFriendship() {
+        return friendship;
+    }
+
+    public void setFriendship(Boolean friendship) {
+        this.friendship = friendship;
     }
 
     public int getFollowers() {
