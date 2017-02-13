@@ -60,13 +60,13 @@ public class CommentsActivity extends AppCompatActivity {
         content = (EditText) findViewById(R.id.content);
         commentList=new ArrayList<>();
         likeDao=new LikeDao(this);
+        bundle = getIntent().getExtras();
+        post = bundle.getInt("id");
+        commentAdapter=new CommentsAdapter(getApplicationContext(),commentList,likeDao,sessionManager,post);
         recyclerView = (RecyclerView) findViewById(R.id.comment_recycler);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(commentAdapter);
-        bundle = getIntent().getExtras();
-        post = bundle.getInt("id");
-        commentAdapter=new CommentsAdapter(getApplicationContext(),commentList,likeDao,sessionManager,post);
         commentDao= new CommentDao(this);
         send.setEnabled(false);
         notificationDao=new NotificationDao();

@@ -6,8 +6,8 @@ package com.esprit.insta360.Utils;
 
 public class AppConfig {
 
-    public static String IP ="192.168.1.134" ;
-    //public static String IP ="172.16.130.126" ;
+    //public static String IP ="192.168.1.134" ;
+    public static String IP ="172.16.130.126" ;
 
     // user
     public static String URL_LOGIN = "http://"+IP+"/insta360/users/login.php";
@@ -31,6 +31,10 @@ public class AppConfig {
     public static String URL_GET_COMMENTS = "http://"+IP+"/insta360/comments/getComments.php";
     public static String URL_ADD_COMMENT = "http://"+IP+"/insta360/comments/addComment.php";
     public static String URL_DELETE_COMMENT = "http://"+IP+"/insta360/comments/deleteComment.php";
+    //upload
+    public static String URL_ADD_POST = "http://"+IP+"/insta360/post/addNews.php";
+    public static final String IMAGE_DIRECTORY_NAME = "Android File Upload";
+
 
 
 
