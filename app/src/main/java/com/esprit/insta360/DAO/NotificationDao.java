@@ -9,6 +9,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.esprit.insta360.AppController;
 import com.esprit.insta360.Models.Notification;
 import com.esprit.insta360.Utils.AppConfig;
 
@@ -16,7 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by TIBH on 25/01/2017.
@@ -24,40 +27,43 @@ import java.util.List;
 
 public class NotificationDao {
 
-    private Activity activity;
-    public NotificationDao(Activity activity){
-        this.activity=activity;
+    public NotificationDao(){
     }
 
-    public void getNotifications(final List<Notification> notificationList){
-        Volley.newRequestQueue(activity).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_NOTIFICATIONS + "?receiver=" +7,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if (response != null) {
-                            try {
-                                JSONObject jo = new JSONObject(response);
-                                JSONArray array = jo.getJSONArray("notifications");
-                                for (int i = 0; i < array.length(); i++) {
-                                    JSONObject j = array.getJSONObject(i);
-                                    Notification notification = new Notification(j);
-                                    notificationList.add(notification);
-                                }
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+    public void addNotification(final int sender,final int receiver,final String type,final String link){
+        String tag_string_req = "req_notify";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_NOTIFY, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+            }
+        }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("error setting note : " + error.getMessage());
-                if (error instanceof TimeoutError) {
-                    System.out.println("erreur");
-                }
             }
-        }));
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("sender", String.valueOf(sender));
+                params.put("receiver", String.valueOf(receiver));
+                params.put("link", link);
+                params.put("type",type);
+
+                return params;
+            }
+
+        };
+
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 }

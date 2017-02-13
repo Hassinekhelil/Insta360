@@ -23,11 +23,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.esprit.insta360.Adapters.PicturesAdapter;
 import com.esprit.insta360.DAO.InvitationDao;
+import com.esprit.insta360.DAO.NotificationDao;
 import com.esprit.insta360.DAO.UserDao;
 import com.esprit.insta360.Models.Post;
 import com.esprit.insta360.Models.User;
 import com.esprit.insta360.R;
 import com.esprit.insta360.Utils.AppConfig;
+import com.esprit.insta360.Utils.RoundedTransformation;
 import com.esprit.insta360.Utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
@@ -43,8 +45,8 @@ import java.util.List;
  */
 
 public class ProfileActivity extends AppCompatActivity {
-    private Button back,follow;
-    private TextView title,name,alias,bio,posts,followers,followings,idPost,id;
+    private Button follow;
+    private TextView name,alias,bio,posts,followers,followings,idPost,id;
     private ImageView profilePicture;
     private List<Post> postList;
     private List<User> userList;
@@ -55,16 +57,13 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private InvitationDao invitationDao;
     private SessionManager sessionManager;
+    private NotificationDao notificationDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.profile_toolbar);
-        setSupportActionBar(toolbar);
         sessionManager= new SessionManager(getApplicationContext());
-        back = (Button) findViewById(R.id.returnBtn);
-        title =(TextView) findViewById(R.id.secondTitre);
         profilePicture = (ImageView) findViewById(R.id.ivUserProfilePhoto);
         name =(TextView) findViewById(R.id.name);
         alias=(TextView) findViewById(R.id.alias);
@@ -76,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         mRecyclerView=(RecyclerView)findViewById(R.id.rvUserProfile);
         userDao=new UserDao();
         invitationDao=new InvitationDao(this);
+        notificationDao= new NotificationDao();
         postList=new ArrayList<>();
         userList=new ArrayList<>();
         picturesAdapter=new PicturesAdapter(getApplicationContext(),postList);
@@ -84,34 +84,30 @@ public class ProfileActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(picturesAdapter);
         bundle=getIntent().getExtras();
         idUser=bundle.getInt("id");
-        //test
-        sessionManager.setUserId(7);
 
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(userList.get(0).getFriendship()){
+                    userList.get(0).setFriendship(false);
+                    followers.setText(String.valueOf(userList.get(0).getFollowers()-1));
                     invitationDao.deleteFriendRequest(sessionManager.getUserId(),idUser);
                     follow.setText("follow");
                     follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
                     follow.setBackgroundResource(R.drawable.btn_follow);
-                    setParams();
                 }
                 else{
+                    userList.get(0).setFriendship(true);
+                    followers.setText(String.valueOf(userList.get(0).getFollowers()+1));
                     invitationDao.sendFriendRequest(sessionManager.getUserId(),idUser);
+                    notificationDao.addNotification(sessionManager.getUserId(),idUser,"request",null);
                     follow.setText("following");
                     follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
                     follow.setBackgroundResource(R.drawable.btn_follow_pressed);
-                    setParams();
                 }
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
     }
 
@@ -124,14 +120,16 @@ public class ProfileActivity extends AppCompatActivity {
     public void setParams(){
 
         if (userList.size()>0){
-            title.setText(userList.get(0).getName());
             name.setText(userList.get(0).getName());
             alias.setText(userList.get(0).getLogin());
             bio.setText(userList.get(0).getBiographie());
             followers.setText(String.valueOf(userList.get(0).getFollowers()));
             followings.setText(String.valueOf(userList.get(0).getFollowings()));
             posts.setText(String.valueOf(userList.get(0).getPosts()));
-            Picasso.with(getApplicationContext()).load(userList.get(0).getPhoto()).into(profilePicture);
+            Picasso.with(getApplicationContext())
+                    .load(userList.get(0).getPhoto())
+                    .transform(new RoundedTransformation())
+                    .into(profilePicture);
             if (userList.get(0).getFriendship()){
                 follow.setText("following");
                 follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
@@ -150,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity {
         postList.clear();
         userList.clear();
         Volley.newRequestQueue(this).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_USER_BY_ID
-                + "?id=" +6+"&me="+7,
+                + "?id=" +idUser+"&me="+sessionManager.getUserId(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

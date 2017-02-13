@@ -62,7 +62,7 @@
                     android:layout_alignLeft="@+id/writer"
                     android:layout_below="@+id/writer"
                     android:paddingLeft="22dp"
-                    android:textColor="#000"
+                    android:textColor="#a6a6a6"
                     android:textSize="15dp"
                     android:layout_toEndOf="@+id/Time"
                     />
@@ -78,7 +78,7 @@
                 android:scaleType="centerCrop" />
             <TextView
                 android:id="@+id/like"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:layout_below="@id/post"
                 android:layout_toEndOf="@+id/likePicture"
@@ -93,6 +93,25 @@
                 android:clickable="true"
                 android:src="@drawable/ic_like"
                 />
+            <ImageView
+                android:id="@+id/comment"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/post"
+                android:layout_toEndOf="@+id/like"
+                android:clickable="true"
+                android:src="@drawable/ic_comment"
+                />
+            <TextView
+                android:id="@+id/nbComment"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/post"
+                android:layout_toEndOf="@+id/comment"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="25dp" />
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="230dp"

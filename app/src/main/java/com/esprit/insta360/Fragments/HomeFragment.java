@@ -17,7 +17,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.esprit.insta360.Adapters.HomeAdapter;
+import com.esprit.insta360.Adapters.PostsAdapter;
 import com.esprit.insta360.DAO.LikeDao;
 import com.esprit.insta360.Models.Post;
 import com.esprit.insta360.R;
@@ -37,11 +37,11 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    private HomeAdapter homeAdapter;
     private SessionManager sessionManager;
     private LikeDao likeDao;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private List<Post> postList;
+    private PostsAdapter postsAdapter;
 
 
     public HomeFragment(){
@@ -64,10 +64,10 @@ public class HomeFragment extends Fragment {
         postList=new ArrayList<>();
         likeDao=new LikeDao(getActivity());
         sessionManager= new SessionManager(getContext());
-        homeAdapter=new HomeAdapter(getContext(),postList,likeDao,sessionManager);
+        postsAdapter=new PostsAdapter(getContext(),postList,likeDao,sessionManager);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(homeAdapter);
+        recyclerView.setAdapter(postsAdapter);
         getPosts();
         return view;
     }
@@ -80,7 +80,8 @@ public class HomeFragment extends Fragment {
 
     public void getPosts(){
         postList.clear();
-        Volley.newRequestQueue(getActivity()).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_POSTS+ "?user="+7,
+        Volley.newRequestQueue(getActivity()).add(new StringRequest(Request.Method.GET, AppConfig.URL_GET_POSTS+
+                "?user="+sessionManager.getUserId(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -92,11 +93,8 @@ public class HomeFragment extends Fragment {
                                     JSONObject j = array.getJSONObject(i);
                                     Post post=new Post(j);
                                     postList.add(post);
-                                    //Toast.makeText(getActivity(), "id="+notificationList.get(0).getSender()
-                                    // +"post="+notificationList.get(0).getLink(), Toast.LENGTH_SHORT).show();
                                 }
-                                Toast.makeText(getActivity(), ""+postList.size(), Toast.LENGTH_SHORT).show();
-                                homeAdapter.notifyDataSetChanged();
+                                postsAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

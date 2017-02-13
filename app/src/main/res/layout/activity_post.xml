@@ -6,8 +6,45 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.esprit.insta360.Activity.ProfileActivity">
-
+     <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
     <include layout="@layout/content_post" />
-
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comment_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/Pcontent"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Add your comment..."
+            android:layout_gravity="bottom"
+            android:layout_alignBottom="@+id/line"
+            android:textColor="#000"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/send"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/line"
+            android:layout_toEndOf="@+id/Pcontent"
+            android:layout_gravity="bottom"
+            android:background="#fff"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="textStart"
+            android:paddingLeft="5dp"
+            android:text="post"/>
+    </LinearLayout>
+         </LinearLayout>
+     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -38,7 +38,6 @@ public class NotificationsFragment extends Fragment{
     private RecyclerView recyclerView;
     private NotificationsAdapter adapter;
     private List<Notification> notificationList;
-    private NotificationDao notificationDao;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -55,7 +54,6 @@ public class NotificationsFragment extends Fragment{
         });
         recyclerView = (RecyclerView) view.findViewById(R.id.notif_recycler);
         notificationList = new ArrayList<>();
-        notificationDao = new NotificationDao(getActivity());
         adapter = new NotificationsAdapter(getActivity(), notificationList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager);

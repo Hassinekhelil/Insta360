@@ -21,24 +21,27 @@ public class Post {
     private String photo;
     private String location;
     private Boolean liked;
+    private int comments;
 
-    public Post(int id, Date date, String description, String url, int likes, int owner,String name,String photo,String location,Boolean liked) {
+    public Post(int id, Date date, String description, String url, int likes, int owner, String name, String photo, String location, Boolean liked, int comments) {
         this.id = id;
         this.date = date;
         this.description = description;
         this.url = url;
         this.likes = likes;
         this.owner = owner;
-        this.name=name;
-        this.photo=photo;
-        this.location=location;
-        this.liked=liked;
+        this.name = name;
+        this.photo = photo;
+        this.location = location;
+        this.liked = liked;
+        this.comments = comments;
     }
 
     public Post(JSONObject j) {
         this.id=j.optInt("id");
-        this.owner=j.optInt("user_id");
+        this.owner=j.optInt("user");
         this.likes=j.optInt("like");
+        this.comments=j.optInt("comment");
         this.description=j.optString("description");
         this.url=j.optString("url");
         this.name=j.optString("name");
@@ -51,6 +54,14 @@ public class Post {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
     }
 
     public int getId() {

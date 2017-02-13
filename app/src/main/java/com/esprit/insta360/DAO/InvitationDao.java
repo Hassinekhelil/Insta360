@@ -41,7 +41,6 @@ public class InvitationDao {
 
             @Override
             public void onResponse(String response) {
-                Toast.makeText(activity.getApplicationContext(), "sucess", Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
 
@@ -75,7 +74,6 @@ public class InvitationDao {
 
             @Override
             public void onResponse(String response) {
-                Toast.makeText(activity.getApplicationContext(), "sucess delete", Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
 

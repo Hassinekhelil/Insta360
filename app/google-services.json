@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "49661205272",
+    "firebase_url": "https://insta360-a508d.firebaseio.com",
+    "project_id": "insta360-a508d",
+    "storage_bucket": "insta360-a508d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49661205272:android:39b6ae0411791261",
+        "android_client_info": {
+          "package_name": "com.esprit.insta360"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49661205272-87k7b11ltvgvs6t7rk20jn87kusjvgvf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRpAKyTxqZ05g5m_8pJZ2s3476JzBGS_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

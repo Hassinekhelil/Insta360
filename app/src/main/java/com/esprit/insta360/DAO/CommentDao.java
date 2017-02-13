@@ -14,22 +14,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by TIBH on 30/01/2017.
+ * Created by TIBH on 05/02/2017.
  */
 
-public class LikeDao {
+public class CommentDao {
+
     private Activity activity;
 
-    public LikeDao(Activity activity){
+    public CommentDao (Activity activity){
         this.activity=activity;
-
     }
 
-    public void addLike(final int user,final int post,final String type){
-        String tag_string_req = "req_like";
+    public void addComment(final int user,final int post,final String content){
+        String tag_string_req = "req_comment";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_LIKE, new Response.Listener<String>() {
+                AppConfig.URL_ADD_COMMENT, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -48,7 +48,7 @@ public class LikeDao {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user", String.valueOf(user));
                 params.put("post", String.valueOf(post));
-                params.put("type",type);
+                params.put("content", content);
                 return params;
             }
 
@@ -60,7 +60,7 @@ public class LikeDao {
 
     }
 
-    public void deleteLike(final int user,final int post ,final String type){
+    public void deleteLike(final int user,final int post){
         String tag_string_req = "req_like";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -83,7 +83,6 @@ public class LikeDao {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user", String.valueOf(user));
                 params.put("post", String.valueOf(post));
-                params.put("type",type);
                 return params;
             }
 

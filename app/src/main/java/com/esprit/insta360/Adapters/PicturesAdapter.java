@@ -54,8 +54,9 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.MyView
     @Override
     public void onBindViewHolder(PicturesAdapter.MyViewHolder holder, final int position) {
         final Post post=postList.get(position);
-        id=post.getId();
+        //id=post.getId();
         holder.idPost.setText(String.valueOf(post.getId()));
+
         Picasso.with(mContext).load(post.getUrl()).into(holder.picture);
 
         holder.picture.setOnClickListener(new View.OnClickListener() {

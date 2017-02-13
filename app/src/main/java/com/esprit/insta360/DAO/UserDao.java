@@ -149,7 +149,6 @@ public class UserDao {
                         int id = user.getInt("id");
                         String name = user.getString("name");
                         String email = user.getString("email");
-                        String created_at = user.getString("created_at");
                         String photo = user.getString("photo");
                         // Create login session
 
@@ -158,6 +157,7 @@ public class UserDao {
                         session.setUserEmail(email);
                         session.setUserName(name);
                         session.setUserPwd(password);
+                        session.setUserPhoto(photo);
 
 
                         // Launch main activity
