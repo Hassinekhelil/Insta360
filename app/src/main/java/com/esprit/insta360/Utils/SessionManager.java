@@ -10,7 +10,7 @@ import android.content.SharedPreferences.Editor;
 
 public class SessionManager {
     // LogCat tag
-    private static String TAG = SessionManager.class.getSimpleName();
+    //private static String TAG = SessionManager.class.getSimpleName();
 
     // Shared Preferences
     SharedPreferences pref;
@@ -21,31 +21,9 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "FindMeLogin";
+    private static final String PREF_NAME = "PimLogin";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-
-    private static final String USER_ID = "id";
-
-    private static final String CIRCLE_ID = "circle_id";
-
-    private static final String CIRCLE_CODE= "circle_code";
-
-    private static final String USER_PHOTO= "user_photo";
-
-    private static final String NEWS_ID = "news_id";
-
-    private static final String USER_POSITION = "user_position";
-
-    public int DefaultId = 0;
-
-    public int DefaultCircleId =0;
-
-    public String DefaultCircleCode ="";
-
-    public int DefaultIdNews = 0;
-
-    public int DefaultPosition = 0;
 
     public SessionManager(Context context) {
         this._context = context;
@@ -77,7 +55,7 @@ public class SessionManager {
 
     public void setUserId(int id) {
 
-        editor.putInt(USER_ID, id);
+        editor.putInt("id", id);
 
         // commit changes
         editor.commit();
@@ -86,50 +64,12 @@ public class SessionManager {
 
     public int getUserId() {
 
-        return pref.getInt(USER_ID, DefaultId);
+        return pref.getInt("id", 0);
     }
 
-    public void setCircleId(int id) {
-
-        editor.putInt(CIRCLE_ID, id);
-
-        // commit changes
-        editor.commit();
-    }
-
-    public int getCircleId() {
-
-        return pref.getInt(CIRCLE_ID, DefaultCircleId);
-    }
-    public void setNewsId(int id) {
-
-        editor.putInt(NEWS_ID, id);
-
-        // commit changes
-        editor.commit();
-
-    }
-    public int getNewsId() {
-
-        return pref.getInt(NEWS_ID, DefaultIdNews);
-
-    }
-
-    public void setCircleCode(String code) {
-
-        editor.putString(CIRCLE_CODE, code);
-
-        // commit changes
-        editor.commit();
-    }
-
-    public String getCircleCode() {
-
-        return pref.getString(CIRCLE_CODE, DefaultCircleCode);
-    }
     public void setUserPhoto(String url) {
 
-        editor.putString(USER_PHOTO, url);
+        editor.putString("photo", url);
 
         // commit changes
         editor.commit();
@@ -137,15 +77,12 @@ public class SessionManager {
 
     public String getUserPhoto() {
 
-        return pref.getString(USER_PHOTO, "");
+        return pref.getString("photo", "");
     }
-
-
-
 
     public void setUserName(String url) {
 
-        editor.putString("user_name", url);
+        editor.putString("name", url);
 
         // commit changes
         editor.commit();
@@ -153,11 +90,11 @@ public class SessionManager {
 
     public String getUserName() {
 
-        return pref.getString("user_name", "");
+        return pref.getString("name", "");
     }
     public void setUserEmail(String url) {
 
-        editor.putString("user_email", url);
+        editor.putString("email", url);
 
         // commit changes
         editor.commit();
@@ -165,11 +102,11 @@ public class SessionManager {
 
     public String getUserEmail() {
 
-        return pref.getString("user_email", "");
+        return pref.getString("email", "");
     }
     public void setUserPhone(String url) {
 
-        editor.putString("user_phone", url);
+        editor.putString("phone", url);
 
         // commit changes
         editor.commit();
@@ -177,11 +114,11 @@ public class SessionManager {
 
     public String getUserPhone() {
 
-        return pref.getString("user_phone", "");
+        return pref.getString("phone", "");
     }
     public void setUserPwd(String url) {
 
-        editor.putString("user_pwd", url);
+        editor.putString("pwd", url);
 
         // commit changes
         editor.commit();
@@ -189,19 +126,85 @@ public class SessionManager {
 
     public String getUserPwd() {
 
-        return pref.getString("user_pwd", "");
+        return pref.getString("pwd", "");
     }
 
-    public void setUserPosition(String position) {
+    public void setUserBio(String url) {
 
-        editor.putString("user_position", position);
+        editor.putString("bio", url);
 
         // commit changes
         editor.commit();
     }
 
-    public String getUserPosition() {
+    public String getUserBio() {
 
-        return pref.getString("user_position", "");
+        return pref.getString("bio", "");
     }
+
+    public void setUserSexe(String url) {
+
+        editor.putString("sexe", url);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public String getUserSexe() {
+
+        return pref.getString("sexe", "");
+    }
+
+    public void setUserFollowers(int url) {
+
+        editor.putInt("followers", url);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public int getUserFollowers() {
+
+        return pref.getInt("followers", 0);
+    }
+
+    public void setUserFollowings(int url) {
+
+        editor.putInt("followings", url);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public int getUserFollowings() {
+
+        return pref.getInt("followings", 0);
+    }
+
+    public void setUserPosts(int url) {
+
+        editor.putInt("posts", url);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public int getUserPosts() {
+
+        return pref.getInt("posts", 0);
+    }
+    public void setUserLogin(String url) {
+
+        editor.putString("login", url);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public String getUserLogin() {
+
+        return pref.getString("login", "");
+    }
+
+
 }

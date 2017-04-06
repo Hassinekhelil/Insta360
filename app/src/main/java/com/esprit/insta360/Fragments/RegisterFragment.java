@@ -101,29 +101,7 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        inputEmail.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count){
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){
-            }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-                if (inputEmail.getText().toString().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z]+.[a-zA-Z]{2,4}$"))
-                {
-
-                }
-                else
-                {
-                    inputEmail.setError("invalid Email");
-                }
-            }
-        });
         inputEmail.addTextChangedListener(new TextWatcher() {
 
             @Override

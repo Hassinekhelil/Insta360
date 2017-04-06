@@ -45,9 +45,11 @@
         <activity
             android:name=".Activity.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.PostActivity"
-        android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.CommentsActivity"
+        <activity
+            android:name=".Activity.PostActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.CommentsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- Firebase Notifications -->
         <service android:name=".Services.MyFirebaseMessagingService">
@@ -55,15 +57,24 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".Services.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
-        <activity android:name=".Activity.ShareActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Activity.UploadActivity" android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.ShareActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.UploadActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.UsersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.EditProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

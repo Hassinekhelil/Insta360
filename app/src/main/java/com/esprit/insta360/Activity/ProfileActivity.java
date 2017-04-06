@@ -1,6 +1,7 @@
 package com.esprit.insta360.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -105,6 +106,30 @@ public class ProfileActivity extends AppCompatActivity {
                     follow.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
                     follow.setBackgroundResource(R.drawable.btn_follow_pressed);
                 }
+            }
+        });
+        followers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle =new Bundle();
+                bundle.putInt("c",1);
+                bundle.putInt("id",idUser);
+                Intent intent = new Intent(ProfileActivity.this, UsersActivity.class);
+                intent.putExtras(bundle);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        followings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle =new Bundle();
+                bundle.putInt("c",0);
+                bundle.putInt("id",idUser);
+                Intent intent = new Intent(ProfileActivity.this, UsersActivity.class);
+                intent.putExtras(bundle);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 

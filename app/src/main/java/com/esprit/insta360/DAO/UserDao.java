@@ -150,6 +150,13 @@ public class UserDao {
                         String name = user.getString("name");
                         String email = user.getString("email");
                         String photo = user.getString("photo");
+                        String phone =user.getString("numero");
+                        String sexe =user.getString("sexe");
+                        String bio = user.getString("biographie");
+                        String login = user.getString("login");
+                        int followers = user.getInt("followers");
+                        int followings = user.getInt("followings");
+                        int posts = user.getInt(("posts"));
                         // Create login session
 
                         session.setLogin(true);
@@ -158,6 +165,14 @@ public class UserDao {
                         session.setUserName(name);
                         session.setUserPwd(password);
                         session.setUserPhoto(photo);
+                        session.setUserPhone(phone);
+                        session.setUserSexe(sexe);
+                        session.setUserLogin(login);
+                        session.setUserBio(bio);
+                        session.setUserFollowers(followers);
+                        session.setUserFollowings(followings);
+                        session.setUserPosts(posts);
+
 
 
                         // Launch main activity
@@ -360,5 +375,73 @@ public class UserDao {
             }
         }));
 
+    }
+
+    public void updateUser(final String name, final String email, final String phone,
+                             final String login,final String sexe, final String bio) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_update";
+        pDialog = new ProgressDialog(activity);
+        pDialog.setCancelable(false);
+
+        // Session manager
+        session = new SessionManager(activity.getApplicationContext());
+
+        pDialog.setMessage("Saving ...");
+        showDialog();
+
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_UPDATE_USER, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Updating Response: " + response.toString());
+
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error) {
+                        JSONObject user = jObj.getJSONObject("user");
+                        int id = user.getInt("id");
+                        // Launch login activity
+                    } else {
+                        // Error occurred in registration. Get the error message
+                        String errorMsg = jObj.getString("error_msg");
+                    }
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "updating Error: " + error.getMessage());
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", String.valueOf(session.getUserId()));
+                params.put("name", name);
+                params.put("email", email);
+                params.put("phone", phone);
+                params.put("sexe", sexe);
+                params.put("bio", bio);
+                params.put("login", login);
+                return params;
+            }
+
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 }
